@@ -1,0 +1,14 @@
+Icon?
+build
+*.mode*
+*.pbxuser
+*.perspectivev3
+*.log
+*.xcworkspace
+xcuserdata
+*.DS_Store
+.idea/*
+/AppleDoc/
+DerivedData/*
+
+*.orig
