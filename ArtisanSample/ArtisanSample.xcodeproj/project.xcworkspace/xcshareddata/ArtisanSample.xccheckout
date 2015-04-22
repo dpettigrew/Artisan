@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D3F9D681-5A13-49DE-B957-68623C827B51</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ArtisanSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>99888057DFB81CEFD35D990C3C161BF950D99E98</key>
+		<string>https://github.com/dpettigrew/Artisan.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ArtisanSample/ArtisanSample.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>99888057DFB81CEFD35D990C3C161BF950D99E98</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/dpettigrew/Artisan.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>99888057DFB81CEFD35D990C3C161BF950D99E98</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>99888057DFB81CEFD35D990C3C161BF950D99E98</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Artisan</string>
+		</dict>
+	</array>
+</dict>
+</plist>

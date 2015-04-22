@@ -6,7 +6,7 @@ Artisan is a graphics library for iOS inspired by [Raphael](http://raphaeljs.com
 Start by adding Artisan.swift to your Xcode project.
 
 ##Create a drawing canvas
-When we draw with Artisan, we do so onto a canvas. This canvas, which we'll reference in a variable called 'paper', is created using the Paper class. We always specify the width and height of the canvas. Optionaly, you can set the background color using the `fill` property. Colors are all defined using CSS hex style strings.
+When we draw with Artisan, we do so onto a canvas. This canvas, which we'll reference in a variable called 'paper', is created using the Paper class. We always specify the width and height of the canvas. Optionaly, you can set the background color using the *fill* property. Colors are all defined using CSS hex style strings.
 e.g.
 
     override func viewDidAppear(animated: Bool) {
@@ -79,7 +79,9 @@ Use the Paper.path method to add paths to the paper. Paths are created using *pa
 ![paths](paths.png)
 
 ##Arcs
-We can draw arcs that are portions of a circle using the Paper.arc function.
+We can draw arcs that are portions of a circle using the Paper.arc function 
+
+or using the "a" path string and the Path.path function.
 
         var arc = paper.path("a 100 100 25 0 180 1")
         arc.stroke = "#9C27B0"
@@ -99,5 +101,13 @@ You can add images to the paper using the Paper.image function
 Many of the properties exposed by the Element sub-classes support implicit animation. Changing the value of an ellipse's fill, height, width, xCenter and yCenter will all be animated to the new values. Changing of the *instructionString* property of a Path object will result in the shape of the object animated from its current shape to the new one.
 
 ##Todo
-Future plans include adding more support for drawing of text, Bezier paths, gradients, explicit animations & touch/gesture handling
+Future plans include adding more support for 
+
+* drawing of text
+* Bezier paths
+* gradients
+* explicit animations
+* touch/gesture handling
+* API improvements to use consistent data types. e.g. consistent use CGFloat or Swift language types like Double?
+* Suite of demo code like the Raphael demos
         
