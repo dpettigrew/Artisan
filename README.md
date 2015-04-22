@@ -1,6 +1,6 @@
 #Artisan
 
-Artisan is a graphics library for iOS inspired by [Raphael](http://raphaeljs.com) and [SVG](http://www.w3.org/TR/SVG/Overview.html). It uses [CoreGraphics](https://developer.apple.com/library/prerelease/ios/documentation/CoreGraphics/Reference/CoreGraphics_Framework/index.html) to draw shapes and paths but xposes a simpler Swift API.
+Artisan is a graphics library for iOS inspired by [Raphael](http://raphaeljs.com) and [SVG](http://www.w3.org/TR/SVG/Overview.html). It uses [CoreGraphics](https://developer.apple.com/library/prerelease/ios/documentation/CoreGraphics/Reference/CoreGraphics_Framework/index.html) to draw shapes and paths but exposes a simpler Swift API.
 
 ##Setup
 Start by adding Artisan.swift to your Xcode project.
