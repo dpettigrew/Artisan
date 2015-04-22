@@ -138,12 +138,18 @@ class Paper: UIView {
     }
 
     func arc(#xCenter: Double, yCenter: Double, radius: Double, startAngle: Double, endAngle: Double, clockwise: Bool) -> Path {
-        var path: Path = Path(instructionString: "A \(xCenter) \(yCenter) \(radius) \(startAngle) \(endAngle) \(clockwise)")
+        var clockwiseStr: String = clockwise == true ? "1" : "0"
+        var path: Path = Path(instructionString: "A \(xCenter) \(yCenter) \(radius) \(startAngle) \(endAngle) \(clockwiseStr)")
         path.paper = self
         layer.addSublayer(path)
         func draw(element: Element) {
             let path = element as! Path
-            path.fillColor = Artisan.colorFromHTMLColor(path.fill).CGColor
+            if path.fill == "" {
+                path.fillColor = nil
+            }
+            else {
+                path.fillColor = Artisan.colorFromHTMLColor(path.fill).CGColor
+            }
             path.strokeColor = Artisan.colorFromHTMLColor(path.stroke).CGColor
         }
         var drawer: Drawer = Drawer(element: path as Element, drawFunc: draw)
