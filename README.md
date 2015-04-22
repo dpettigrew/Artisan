@@ -95,3 +95,9 @@ You can add images to the paper using the Paper.image function
         var image = UIImage(named: "photoHeader")
         paper.image(src: image!, xOrigin: 0, yOrigin: Double(paper.bounds.size.height) - 140, width: 320, height: 140)
         
+##Animations
+Many of the properties exposed by the Element sub-classes support implicit animation. Changing the value of an ellipse's fill, height, width, xCenter and yCenter will all be animated to the new values. Changing of the *instructionString* property of a Path object will result in the shape of the object animated from its current shape to the new one.
+
+##Todo
+Future plans include adding more support for drawing of text, Bezier paths, gradients, explicit animations & touch/gesture handling
+        
