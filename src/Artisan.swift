@@ -134,7 +134,7 @@ class Paper: UIView {
     }
 
     func circle(xCenter xCenter: Double, yCenter: Double, r: Double) -> Ellipse {
-        return ellipse(xCenter: xCenter, yCenter: yCenter, width: r, height: r)
+        return ellipse(xCenter: xCenter, yCenter: yCenter, width: r * 2, height: r * 2)
     }
 
     func arc(xCenter xCenter: Double, yCenter: Double, radius: Double, startAngle: Double, endAngle: Double, clockwise: Bool) -> Path {
