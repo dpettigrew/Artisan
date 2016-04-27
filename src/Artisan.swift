@@ -23,7 +23,7 @@ class Artisan {
 
         if (cString.characters.count == 3) {
             var paddedString:String = ""
-            let range = Range<String.Index>(start: cString.startIndex, end: cString.endIndex)
+            let range = cString.startIndex ..< cString.endIndex
             cString.enumerateSubstringsInRange(range, options: .ByComposedCharacterSequences, { (substring, substringRange, enclosingRange, _) -> () in
                 paddedString = paddedString + substring! + substring!
             })
@@ -346,7 +346,7 @@ class Path: Element {
             switch instruction {
             case "M": // moveto (absolute) e.g. M 250 550
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete M path instruction")
+                    print("Encountered incomplete M path instruction", terminator: "\n")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -360,7 +360,7 @@ class Path: Element {
                 }
             case "m": // moveto (relative) e.g. m 250 550
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete m path instruction")
+                    print("Encountered incomplete m path instruction", terminator: "\n")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -374,7 +374,7 @@ class Path: Element {
                 }
             case "L": // lineto (absolute) e.g. L 190 78
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete L path instruction")
+                    print("Encountered incomplete L path instruction", terminator: "\n")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -388,7 +388,7 @@ class Path: Element {
                 }
             case "l": // lineto (relative) e.g. l 10 100
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete l path instruction")
+                    print("Encountered incomplete l path instruction", terminator: "\n")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -402,7 +402,7 @@ class Path: Element {
                 }
             case "a", "A": // arc e.g. a 100 100 25 180 270 1
                 if instructions.count <= instructionStartIndex+6 {
-                    print("Encountered incomplete a or A path instruction")
+                    print("Encountered incomplete a or A path instruction", terminator: "\n")
                     break
                 }
                 let xCenterStr = instructions[instructionStartIndex+1]
@@ -432,7 +432,7 @@ class Path: Element {
                 CGPathCloseSubpath(pathRef)
                 instructionStartIndex = instructionStartIndex + 2
             default:
-                print("Failed to process path instruction")
+                print("Failed to process path instruction", terminator: "\n")
             }
         }
         return pathRef
