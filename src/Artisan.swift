@@ -346,7 +346,7 @@ class Path: Element {
             switch instruction {
             case "M": // moveto (absolute) e.g. M 250 550
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete M path instruction", terminator: "\n")
+                    print("Encountered incomplete M path instruction")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -360,7 +360,7 @@ class Path: Element {
                 }
             case "m": // moveto (relative) e.g. m 250 550
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete m path instruction", terminator: "\n")
+                    print("Encountered incomplete m path instruction")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -374,7 +374,7 @@ class Path: Element {
                 }
             case "L": // lineto (absolute) e.g. L 190 78
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete L path instruction", terminator: "\n")
+                    print("Encountered incomplete L path instruction")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -388,7 +388,7 @@ class Path: Element {
                 }
             case "l": // lineto (relative) e.g. l 10 100
                 if instructions.count <= instructionStartIndex+2 {
-                    print("Encountered incomplete l path instruction", terminator: "\n")
+                    print("Encountered incomplete l path instruction")
                     break
                 }
                 let xStr = instructions[instructionStartIndex+1]
@@ -402,7 +402,7 @@ class Path: Element {
                 }
             case "a", "A": // arc e.g. a 100 100 25 180 270 1
                 if instructions.count <= instructionStartIndex+6 {
-                    print("Encountered incomplete a or A path instruction", terminator: "\n")
+                    print("Encountered incomplete a or A path instruction")
                     break
                 }
                 let xCenterStr = instructions[instructionStartIndex+1]
@@ -432,7 +432,7 @@ class Path: Element {
                 CGPathCloseSubpath(pathRef)
                 instructionStartIndex = instructionStartIndex + 2
             default:
-                print("Failed to process path instruction", terminator: "\n")
+                print("Failed to process path instruction")
             }
         }
         return pathRef
