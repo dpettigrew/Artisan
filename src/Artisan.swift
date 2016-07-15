@@ -64,7 +64,7 @@ class Artisan {
         return String(format: "%02X", r) + String(format: "%02X", g) + String(format: "%02X", b)
     }
 
-    class func radians(degrees: Double) -> Double {
+    class func radians(_ degrees: Double) -> Double {
         return degrees * M_PI/180
     }
 }
@@ -119,7 +119,7 @@ class Paper: UIView {
         ellipse.paper = self
         layer.addSublayer(ellipse)
         // Ellipse Drawing
-        func draw(element: Element) {
+        func draw(_ element: Element) {
             let ellipse_: Ellipse = element as! Ellipse
             let rect = CGRect(x: CGFloat(ellipse_.xCenter), y: CGFloat(ellipse_.yCenter), width: CGFloat(ellipse_.width), height: CGFloat(ellipse_.height))
             ellipse_.path = UIBezierPath(ovalIn: rect).cgPath
@@ -141,7 +141,7 @@ class Paper: UIView {
         var path: Path = Path(instructionString: "A \(xCenter) \(yCenter) \(radius) \(startAngle) \(endAngle) \(clockwiseStr)")
         path.paper = self
         layer.addSublayer(path)
-        func draw(element: Element) {
+        func draw(_ element: Element) {
             let path = element as! Path
             if path.fill == "" {
                 path.fillColor = nil
@@ -162,7 +162,7 @@ class Paper: UIView {
         rect.cornerRadius = CGFloat(cornerRadius)
         rect.paper = self
         layer.addSublayer(rect)
-        func draw(element: Element) {
+        func draw(_ element: Element) {
             let rectangle: Rectangle = element as! Rectangle
             let rect = CGRect(x: CGFloat(rectangle.xOrigin), y: CGFloat(rectangle.yOrigin), width: CGFloat(rectangle.width), height: CGFloat(rectangle.height))
             // Rectangle Drawing
@@ -184,7 +184,7 @@ class Paper: UIView {
     func image(src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) -> Image {
         var image: Image = Image(src: src, xOrigin: xOrigin, yOrigin: yOrigin, width: width, height: height)
         image.paper = self
-        func draw(element: Element) {
+        func draw(_ element: Element) {
             let image = element as! Image
             let rect = CGRect(x: CGFloat(image.xOrigin), y: CGFloat(image.yOrigin), width: CGFloat(image.width), height: CGFloat(image.height))
             image.uiImage?.draw(in: rect)
@@ -199,7 +199,7 @@ class Paper: UIView {
         var path: Path = Path(instructionString: commands)
         path.paper = self
         layer.addSublayer(path)
-        func draw(element: Element) {
+        func draw(_ element: Element) {
             let path = element as! Path
             path.strokeColor = Artisan.color(fromHexRGB: path.stroke).cgColor
             if path.fill == "" {
@@ -420,8 +420,8 @@ class Path: Element {
                     let x: CGFloat = CGFloat(xCenterNum)
                     let y: CGFloat = CGFloat(yCenterNum)
                     let radius: CGFloat = CGFloat(radiusNum)
-                    let startAngle: CGFloat = CGFloat(Artisan.radians(degrees: Double(startAngleNum)))
-                    let endAngle: CGFloat = CGFloat(Artisan.radians(degrees: Double(endAngleNum)))
+                    let startAngle: CGFloat = CGFloat(Artisan.radians(Double(startAngleNum)))
+                    let endAngle: CGFloat = CGFloat(Artisan.radians(Double(endAngleNum)))
                     let clockwise: Bool = Bool(clockwiseNum)
                     // inverted clockwise used, since for iOS "clockwise arc results in a counterclockwise arc after the transformation is applied" https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CGContext/index.html#//apple_ref/c/func/CGContextAddArc
                     pathRef.addArc(nil, x: x, y: y, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: !clockwise)
