@@ -350,7 +350,8 @@ class Path: Element {
                 }
                 let xStr = instructions[instructionStartIndex+1]
                 let yStr = instructions[instructionStartIndex+2]
-                if let xNum = NumberFormatter().number(from: xStr), yNum = NumberFormatter().number(from: yStr) {
+                if let xNum = NumberFormatter().number(from: xStr),
+                    let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     pathRef.moveTo(nil, x: x, y: y)
@@ -364,7 +365,8 @@ class Path: Element {
                 }
                 let xStr = instructions[instructionStartIndex+1]
                 let yStr = instructions[instructionStartIndex+2]
-                if let xNum = NumberFormatter().number(from: xStr), yNum = NumberFormatter().number(from: yStr) {
+                if let xNum = NumberFormatter().number(from: xStr),
+                    let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     cursorLoc = CGPoint(x: cursorLoc.x + x, y: cursorLoc.y + y)
@@ -378,7 +380,8 @@ class Path: Element {
                 }
                 let xStr = instructions[instructionStartIndex+1]
                 let yStr = instructions[instructionStartIndex+2]
-                if let xNum = NumberFormatter().number(from: xStr), yNum = NumberFormatter().number(from: yStr) {
+                if let xNum = NumberFormatter().number(from: xStr),
+                    let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     pathRef.addLineTo(nil, x: x, y: y)
@@ -392,7 +395,8 @@ class Path: Element {
                 }
                 let xStr = instructions[instructionStartIndex+1]
                 let yStr = instructions[instructionStartIndex+2]
-                if let xNum = NumberFormatter().number(from: xStr), yNum = NumberFormatter().number(from: yStr) {
+                if let xNum = NumberFormatter().number(from: xStr),
+                    let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     cursorLoc = CGPoint(x: cursorLoc.x + x, y: cursorLoc.y + y)
@@ -411,11 +415,11 @@ class Path: Element {
                 let endAngleStr = instructions[instructionStartIndex+5]
                 let clockwiseStr = instructions[instructionStartIndex+6]
                 if let xCenterNum = NumberFormatter().number(from: xCenterStr),
-                    yCenterNum = NumberFormatter().number(from: yCenterStr),
-                    radiusNum = NumberFormatter().number(from: radiusStr),
-                    startAngleNum = NumberFormatter().number(from: startAngleStr),
-                    endAngleNum = NumberFormatter().number(from: endAngleStr),
-                    clockwiseNum = NumberFormatter().number(from: clockwiseStr)
+                    let yCenterNum = NumberFormatter().number(from: yCenterStr),
+                    let radiusNum = NumberFormatter().number(from: radiusStr),
+                    let startAngleNum = NumberFormatter().number(from: startAngleStr),
+                    let endAngleNum = NumberFormatter().number(from: endAngleStr),
+                    let clockwiseNum = NumberFormatter().number(from: clockwiseStr)
                 {
                     let x: CGFloat = CGFloat(xCenterNum)
                     let y: CGFloat = CGFloat(yCenterNum)
