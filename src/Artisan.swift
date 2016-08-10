@@ -53,7 +53,7 @@ class Artisan {
             )
         }
 
-        return .gray()
+        return .gray
     }
 
     class func randomColorString() -> String {
