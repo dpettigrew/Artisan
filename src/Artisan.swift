@@ -73,7 +73,7 @@ class Drawer {
     var element: Element
     var drawFunc: (Element) -> Void
 
-    init(element: Element, drawFunc: (Element) -> Void) {
+    init(element: Element, drawFunc: @escaping (Element) -> Void) {
         self.element = element
         self.drawFunc = drawFunc
     }
@@ -267,7 +267,7 @@ class Ellipse: Element  {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: AnyObject) {
+    required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
@@ -296,7 +296,7 @@ class Rectangle: Element {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: AnyObject) {
+    required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
@@ -320,7 +320,7 @@ class Image: Element {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: AnyObject) {
+    required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
@@ -354,7 +354,7 @@ class Path: Element {
                     let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
-                    pathRef.moveTo(nil, x: x, y: y)
+                    pathRef.move(to: CGPoint(x: x, y: y))
                     instructionStartIndex = instructionStartIndex + 3
                     cursorLoc = CGPoint(x: x, y: y)
                 }
@@ -370,7 +370,7 @@ class Path: Element {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     cursorLoc = CGPoint(x: cursorLoc.x + x, y: cursorLoc.y + y)
-                    pathRef.moveTo(nil, x: cursorLoc.x, y: cursorLoc.y)
+                    pathRef.move(to: CGPoint(x: cursorLoc.x, y: cursorLoc.y))
                     instructionStartIndex = instructionStartIndex + 3
                 }
             case "L": // lineto (absolute) e.g. L 190 78
@@ -384,7 +384,7 @@ class Path: Element {
                     let yNum = NumberFormatter().number(from: yStr) {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
-                    pathRef.addLineTo(nil, x: x, y: y)
+                    pathRef.addLine(to: CGPoint(x: x, y: y))
                     instructionStartIndex = instructionStartIndex + 3
                     cursorLoc = CGPoint(x: x, y: y)
                 }
@@ -400,7 +400,7 @@ class Path: Element {
                     let x: CGFloat = CGFloat(xNum)
                     let y: CGFloat = CGFloat(yNum)
                     cursorLoc = CGPoint(x: cursorLoc.x + x, y: cursorLoc.y + y)
-                    pathRef.addLineTo(nil, x: cursorLoc.x, y: cursorLoc.y)
+                    pathRef.addLine(to: CGPoint(x: cursorLoc.x, y: cursorLoc.y))
                     instructionStartIndex = instructionStartIndex + 3
                 }
             case "a", "A": // arc e.g. a 100 100 25 180 270 1
@@ -428,7 +428,7 @@ class Path: Element {
                     let endAngle: CGFloat = CGFloat(Artisan.radians(Double(endAngleNum)))
                     let clockwise: Bool = Bool(clockwiseNum)
                     // inverted clockwise used, since for iOS "clockwise arc results in a counterclockwise arc after the transformation is applied" https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CGContext/index.html#//apple_ref/c/func/CGContextAddArc
-                    pathRef.addArc(nil, x: x, y: y, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: !clockwise)
+                    pathRef.addArc(center: CGPoint(x: x, y: y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: !clockwise)
                     instructionStartIndex = instructionStartIndex + 7
                 }
             case "z", "Z": // closepath
@@ -452,7 +452,7 @@ class Path: Element {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: AnyObject) {
+    required override init(layer: Any) {
         self.instructionString = ""
         super.init(layer: layer)
     }
