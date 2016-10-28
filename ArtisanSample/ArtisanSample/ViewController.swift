@@ -8,13 +8,10 @@
 
 import UIKit
 
-func delay(delay:Double, closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
+func delay(_ delay:Double, closure:()->()) {
+    DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
+        closure()
+    }
 }
 
 class ViewController: UIViewController {
@@ -30,10 +27,10 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func addEllipses(paper: Paper) {
+    func addEllipses(_ paper: Paper) {
         let xCenter = Double(self.view.center.x)
         let yCenter = Double(self.view.center.y)
-        let width = Double(CGRectGetWidth(self.view.frame))
+        let width = Double(self.view.frame.width)
         let ellipse = paper.ellipse(xCenter: xCenter, yCenter: yCenter, width: width - 100, height: width)
         ellipse.fill = Artisan.hexColorString(r:200, g:200, b:34)
         ellipse.stroke = Artisan.hexColorString(r:155, g:0, b:34)
@@ -53,7 +50,7 @@ class ViewController: UIViewController {
         circle.fill = "#E91E63"
         circle.stroke = "#009688"
         circle.lineWidth = 5.0
-        for(var i = 0; i < 5; i+=1) {
+        for i in 0..<5 {
             let multiplier = i*5;
             let x:Double = Double(150) + Double((2*multiplier))
             let aCircle = paper.circle(xCenter: x, yCenter:Double(100 + multiplier), r:Double(50 - multiplier));
@@ -62,9 +59,9 @@ class ViewController: UIViewController {
         }
     }
 
-    func addRects(paper: Paper) {
+    func addRects(_ paper: Paper) {
         var offset: Double = 50;
-        for(var i = 0; i < 5; i+=1) {
+        for i in 0..<5 {
             let rect = paper.rect(xOrigin: offset, yOrigin: offset, width: 50, height: 50, cornerRadius: Double(i))
             rect.fill = randomColorString()
             rect.lineWidth = CGFloat(i)
@@ -77,13 +74,13 @@ class ViewController: UIViewController {
         rect.stroke = randomColorString()
     }
 
-    func addImages(paper: Paper) {
+    func addImages(_ paper: Paper) {
         let image = UIImage(named: "photoHeader")
         assert(image != nil, "nil image")
-        paper.image(src: image!, xOrigin: 0, yOrigin: Double(paper.bounds.size.height) - 140, width: 320, height: 140)
+        let _ = paper.image(src: image!, xOrigin: 0, yOrigin: Double(paper.bounds.size.height) - 140, width: 320, height: 140)
     }
 
-    func addArcs(paper: Paper) {
+    func addArcs(_ paper: Paper) {
         // method 1
         let arc1 = paper.arc(xCenter: 150, yCenter: 150, radius: 100, startAngle: 45, endAngle: 180, clockwise: true)
         arc1.stroke = "#76FF03"
@@ -95,7 +92,7 @@ class ViewController: UIViewController {
         arc2.lineWidth = 5.0
     }
 
-    func addPaths(paper: Paper) {
+    func addPaths(_ paper: Paper) {
         let tetronimo1 = paper.path("M 250 650 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z")
         tetronimo1.stroke = "#f00"
         tetronimo1.fill = "#ff0"
@@ -120,7 +117,7 @@ class ViewController: UIViewController {
         })
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         // setup a Paper object
         let paper: Paper = Paper(frame: self.view.bounds)
         paper.fill = "#eee"
