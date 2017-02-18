@@ -3,7 +3,7 @@
 //  ArtisanSample
 //
 //  Created by David Pettigrew on 4/7/15.
-//  Copyright (c) 2015 Walmart Labs. All rights reserved.
+//  Copyright (c) 2017 LifeCentrics. All rights reserved.
 //
 
 import UIKit
@@ -13,9 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func applicationDidFinishLaunching(_ application: UIApplication) {
         // Override point for customization after application launch.
-        return true
+        return
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

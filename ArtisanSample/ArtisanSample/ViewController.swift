@@ -3,13 +3,14 @@
 //  ArtisanSample
 //
 //  Created by David Pettigrew on 4/7/15.
-//  Copyright (c) 2015 Walmart Labs. All rights reserved.
+//  Copyright (c) 2017 LifeCentrics. All rights reserved.
 //
 
 import UIKit
 
-func delay(_ delay: Double, closure:() -> Void) {
-    DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
+func delay(_ delay: Double, closure: @escaping () -> Void) {
+    let delay = DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: delay) {
         closure()
     }
 }
@@ -32,11 +33,11 @@ class ViewController: UIViewController {
         let yCenter = Double(self.view.center.y)
         let width = Double(self.view.frame.width)
         let ellipse = paper.ellipse(xCenter: xCenter, yCenter: yCenter, width: width - 100, height: width)
-        ellipse.fill = Artisan.hexColorString(r:200, g:200, b:34)
-        ellipse.stroke = Artisan.hexColorString(r:155, g:0, b:34)
+        ellipse.fill = Artisan.hexColorString(red: 200, green: 200, blue: 34)
+        ellipse.stroke = Artisan.hexColorString(red: 155, green: 0, blue: 34)
 
         delay(1, closure: { () -> Void in
-            ellipse.fill = Artisan.hexColorString(r:100, g:100, b:134)
+            ellipse.fill = Artisan.hexColorString(red:100, green: 100, blue: 134)
             ellipse.height = 45
             ellipse.width = 100
             ellipse.xCenter = 219
@@ -46,14 +47,14 @@ class ViewController: UIViewController {
         let ellipse2 = paper.ellipse(xCenter: 150, yCenter: 150, width: 200, height: 20)
         ellipse2.fill = randomColorString()
 
-        let circle = paper.circle(xCenter: Double(paper.center.x), yCenter: Double(paper.center.y), r: 155)
+        let circle = paper.circle(xCenter: Double(paper.center.x), yCenter: Double(paper.center.y), radius: 155)
         circle.fill = "#E91E63"
         circle.stroke = "#009688"
         circle.lineWidth = 5.0
         for i in 0..<5 {
             let multiplier = i*5
             let x: Double = Double(150) + Double((2*multiplier))
-            let aCircle = paper.circle(xCenter: x, yCenter:Double(100 + multiplier), r:Double(50 - multiplier))
+            let aCircle = paper.circle(xCenter: x, yCenter:Double(100 + multiplier), radius:Double(50 - multiplier))
             aCircle.fill = randomColorString()
             aCircle.stroke = randomColorString()
         }

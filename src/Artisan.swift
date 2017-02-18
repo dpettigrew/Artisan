@@ -60,8 +60,8 @@ class Artisan {
         return String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255)
     }
 
-    class func hexColorString(r: UInt8, g: UInt8, b: UInt8) -> String {
-        return String(format: "%02X", r) + String(format: "%02X", g) + String(format: "%02X", b)
+    class func hexColorString(red: UInt8, green: UInt8, blue: UInt8) -> String {
+        return String(format: "%02X", red) + String(format: "%02X", green) + String(format: "%02X", blue)
     }
 
     class func radians(_ degrees: Double) -> Double {
@@ -88,10 +88,12 @@ class Paper: UIView {
         self.init(frame: CGRect.zero)
     }
 
+    // swiftlint:disable variable_name
     convenience init (x: Double, y: Double, width: Double, height: Double) {
         let rect: CGRect = CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
         self.init(frame: rect)
     }
+    // swiftlint:enable variable_name
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -104,7 +106,7 @@ class Paper: UIView {
         }
     }
 
-    var drawers = Array<Drawer>()
+    var drawers = [Drawer]()
 
     override func draw(_ rect: CGRect) {
         for drawer in drawers {
@@ -132,8 +134,8 @@ class Paper: UIView {
         return ellipse
     }
 
-    func circle(xCenter: Double, yCenter: Double, r: Double) -> Ellipse {
-        return ellipse(xCenter: xCenter, yCenter: yCenter, width: r * 2, height: r * 2)
+    func circle(xCenter: Double, yCenter: Double, radius: Double) -> Ellipse {
+        return ellipse(xCenter: xCenter, yCenter: yCenter, width: radius * 2, height: radius * 2)
     }
 
     func arc(xCenter: Double, yCenter: Double, radius: Double, startAngle: Double, endAngle: Double, clockwise: Bool) -> Path {
