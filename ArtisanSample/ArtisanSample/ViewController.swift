@@ -8,7 +8,7 @@
 
 import UIKit
 
-func delay(_ delay:Double, closure:()->()) {
+func delay(_ delay: Double, closure:() -> Void) {
     DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
         closure()
     }
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         ellipse.fill = Artisan.hexColorString(r:200, g:200, b:34)
         ellipse.stroke = Artisan.hexColorString(r:155, g:0, b:34)
 
-        delay(1, closure: { () -> () in
+        delay(1, closure: { () -> Void in
             ellipse.fill = Artisan.hexColorString(r:100, g:100, b:134)
             ellipse.height = 45
             ellipse.width = 100
@@ -51,16 +51,16 @@ class ViewController: UIViewController {
         circle.stroke = "#009688"
         circle.lineWidth = 5.0
         for i in 0..<5 {
-            let multiplier = i*5;
-            let x:Double = Double(150) + Double((2*multiplier))
-            let aCircle = paper.circle(xCenter: x, yCenter:Double(100 + multiplier), r:Double(50 - multiplier));
+            let multiplier = i*5
+            let x: Double = Double(150) + Double((2*multiplier))
+            let aCircle = paper.circle(xCenter: x, yCenter:Double(100 + multiplier), r:Double(50 - multiplier))
             aCircle.fill = randomColorString()
             aCircle.stroke = randomColorString()
         }
     }
 
     func addRects(_ paper: Paper) {
-        var offset: Double = 50;
+        var offset: Double = 50
         for i in 0..<5 {
             let rect = paper.rect(xOrigin: offset, yOrigin: offset, width: 50, height: 50, cornerRadius: Double(i))
             rect.fill = randomColorString()
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
         triangle.fill = "#FF5722"
 
         // animate it to a triangle
-        delay(1.0, closure: { () -> () in
+        delay(1.0, closure: { () -> Void in
             star.instructionString = ("M 150 50 l -75 200 l 150 0 Z")
             star.stroke = "#342"
             star.fill = "#f49"
@@ -135,4 +135,3 @@ class ViewController: UIViewController {
         return String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255) + "FF"
     }
 }
-

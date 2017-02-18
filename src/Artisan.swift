@@ -14,23 +14,23 @@ import Foundation
 @IBDesignable
 class Artisan {
     class func color(fromHexRGB hex: String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
         if (cString.hasPrefix("#")) {
             cString = cString.substring(from: cString.index(cString.startIndex, offsetBy: 1))
         }
 
         if (cString.characters.count == 3) {
-            var paddedString:String = ""
+            var paddedString: String = ""
             let range = cString.characters.startIndex..<cString.characters.endIndex
-            cString.enumerateSubstrings(in: range, options: .byComposedCharacterSequences, { (substring, substringRange, enclosingRange, _) in
+            cString.enumerateSubstrings(in: range, options: .byComposedCharacterSequences, { (substring, _, _, _) in
                 paddedString = paddedString + substring! + substring!
             })
             cString = paddedString
         }
 
         if (cString.characters.count == 6) {
-            var rgbValue:UInt32 = 0
+            var rgbValue: UInt32 = 0
             Scanner(string: cString).scanHexInt32(&rgbValue)
 
             return UIColor(
@@ -42,7 +42,7 @@ class Artisan {
         }
 
         if (cString.characters.count == 8) {
-            var rgbValue:UInt32 = 0
+            var rgbValue: UInt32 = 0
             Scanner(string: cString).scanHexInt32(&rgbValue)
 
             return UIColor(
@@ -88,8 +88,8 @@ class Paper: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    convenience init (x: Double, y: Double, width: Double, height:Double) {
-        let rect:CGRect = CGRect(x: CGFloat(x), y: CGFloat(y),  width: CGFloat(width), height: CGFloat(height))
+    convenience init (x: Double, y: Double, width: Double, height: Double) {
+        let rect: CGRect = CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
         self.init(frame: rect)
     }
 
@@ -216,7 +216,7 @@ class Paper: UIView {
     }
 }
 
-class Element : CAShapeLayer {
+class Element: CAShapeLayer {
     var paper: Paper?
 
     var stroke: String = "222222" {
@@ -248,14 +248,14 @@ class Element : CAShapeLayer {
     }
 }
 
-class Ellipse: Element  {
-    var xCenter : Double = 0.0
+class Ellipse: Element {
+    var xCenter: Double = 0.0
     var yCenter: Double = 0.0
-    var width : Double = 0.0
+    var width: Double = 0.0
     var height: Double = 0.0
     var shapeLayer: CAShapeLayer?
 
-    init (xCenter: Double, yCenter: Double, width: Double, height:Double) {
+    init (xCenter: Double, yCenter: Double, width: Double, height: Double) {
         self.xCenter = xCenter
         self.yCenter = yCenter
         self.width = width
@@ -273,9 +273,9 @@ class Ellipse: Element  {
 }
 
 class Rectangle: Element {
-    var xOrigin : Double = 0.0
+    var xOrigin: Double = 0.0
     var yOrigin: Double = 0.0
-    var width : Double = 0.0
+    var width: Double = 0.0
     var height: Double = 0.0
 
     override var cornerRadius: CGFloat {
@@ -284,7 +284,7 @@ class Rectangle: Element {
         }
     }
 
-    init (xOrigin: Double, yOrigin: Double, width: Double, height:Double) {
+    init (xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
         self.xOrigin = xOrigin
         self.yOrigin = yOrigin
         self.width = width
@@ -302,13 +302,13 @@ class Rectangle: Element {
 }
 
 class Image: Element {
-    var xOrigin : Double = 0.0
+    var xOrigin: Double = 0.0
     var yOrigin: Double = 0.0
-    var width : Double = 0.0
+    var width: Double = 0.0
     var height: Double = 0.0
     var uiImage: UIImage?
 
-    init (src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height:Double) {
+    init (src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
         self.xOrigin = xOrigin
         self.yOrigin = yOrigin
         self.width = width
@@ -419,8 +419,7 @@ class Path: Element {
                     let radiusNum = NumberFormatter().number(from: radiusStr),
                     let startAngleNum = NumberFormatter().number(from: startAngleStr),
                     let endAngleNum = NumberFormatter().number(from: endAngleStr),
-                    let clockwiseNum = NumberFormatter().number(from: clockwiseStr)
-                {
+                    let clockwiseNum = NumberFormatter().number(from: clockwiseStr) {
                     let x: CGFloat = CGFloat(xCenterNum)
                     let y: CGFloat = CGFloat(yCenterNum)
                     let radius: CGFloat = CGFloat(radiusNum)
@@ -457,4 +456,3 @@ class Path: Element {
         super.init(layer: layer)
     }
 }
-
