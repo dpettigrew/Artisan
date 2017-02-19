@@ -16,11 +16,11 @@ class Artisan {
     class func color(fromHexRGB hex: String) -> UIColor {
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
-        if (cString.hasPrefix("#")) {
+        if cString.hasPrefix("#") {
             cString = cString.substring(from: cString.index(cString.startIndex, offsetBy: 1))
         }
 
-        if (cString.characters.count == 3) {
+        if cString.characters.count == 3 {
             var paddedString: String = ""
             let range = cString.characters.startIndex..<cString.characters.endIndex
             cString.enumerateSubstrings(in: range, options: .byComposedCharacterSequences, { (substring, _, _, _) in
@@ -29,7 +29,7 @@ class Artisan {
             cString = paddedString
         }
 
-        if (cString.characters.count == 6) {
+        if cString.characters.count == 6 {
             var rgbValue: UInt32 = 0
             Scanner(string: cString).scanHexInt32(&rgbValue)
 
@@ -41,7 +41,7 @@ class Artisan {
             )
         }
 
-        if (cString.characters.count == 8) {
+        if cString.characters.count == 8 {
             var rgbValue: UInt32 = 0
             Scanner(string: cString).scanHexInt32(&rgbValue)
 
@@ -338,7 +338,7 @@ class Path: Element {
         var cursorLoc: CGPoint = CGPoint(x: 0, y: 0)
         let pathRef = CGMutablePath()
         var instructionStartIndex: Int = 0
-        var instructions = instructionString.components(separatedBy: " ")
+        var instructions: [String] = instructionString.components(separatedBy: " ")
         for i in 0..<instructions.count {
             if i < instructionStartIndex {
                 continue
