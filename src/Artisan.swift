@@ -1,5 +1,5 @@
 /*
- 
+
  Artisan.swift
 
  Created by David Pettigrew on 4/7/15.
@@ -25,7 +25,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 
-*/
+ */
 
 import UIKit
 import CoreGraphics
@@ -34,8 +34,8 @@ import Foundation
 import Foundation
 
 @IBDesignable
-class Artisan {
-    class func color(fromHexRGB hex: String) -> UIColor {
+public class Artisan {
+    public class func color(fromHexRGB hex: String) -> UIColor {
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
         if cString.hasPrefix("#") {
@@ -78,50 +78,50 @@ class Artisan {
         return .gray
     }
 
-    class func randomColorString() -> String {
+    public class func randomColorString() -> String {
         return String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255) + String(format: "%02X", arc4random()%255)
     }
 
-    class func hexColorString(red: UInt8, green: UInt8, blue: UInt8) -> String {
+    public class func hexColorString(red: UInt8, green: UInt8, blue: UInt8) -> String {
         return String(format: "%02X", red) + String(format: "%02X", green) + String(format: "%02X", blue)
     }
 
-    class func radians(_ degrees: Double) -> Double {
+    public class func radians(_ degrees: Double) -> Double {
         return degrees * Double.pi/180
     }
 }
 
-class Drawer {
-    var element: Element
-    var drawFunc: (Element) -> Void
+public class Drawer {
+    public var element: Element
+    public var drawFunc: (Element) -> Void
 
-    init(element: Element, drawFunc: @escaping (Element) -> Void) {
+    public init(element: Element, drawFunc: @escaping (Element) -> Void) {
         self.element = element
         self.drawFunc = drawFunc
     }
 }
 
-class Paper: UIView {
-    override init(frame: CGRect) {
+public class Paper: UIView {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
-    convenience init() {
+    public convenience init() {
         self.init(frame: CGRect.zero)
     }
 
     // swiftlint:disable variable_name
-    convenience init (x: Double, y: Double, width: Double, height: Double) {
+    public convenience init (x: Double, y: Double, width: Double, height: Double) {
         let rect: CGRect = CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
         self.init(frame: rect)
     }
     // swiftlint:enable variable_name
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    @IBInspectable var fill: String = "666666" {
+    @IBInspectable public var fill: String = "666666" {
         didSet {
             backgroundColor = Artisan.color(fromHexRGB: fill)
             setNeedsDisplay()
@@ -130,13 +130,13 @@ class Paper: UIView {
 
     var drawers = [Drawer]()
 
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         for drawer in drawers {
             drawer.drawFunc(drawer.element)
         }
     }
 
-    func ellipse(xCenter: Double, yCenter: Double, width: Double, height: Double) -> Ellipse {
+    public func ellipse(xCenter: Double, yCenter: Double, width: Double, height: Double) -> Ellipse {
         var ellipseOrigX = xCenter - width/2
         var ellipseOrigY = Double(bounds.origin.y) - height/2 + yCenter
         var ellipse: Ellipse = Ellipse(xCenter: ellipseOrigX, yCenter: ellipseOrigY, width: width, height: height)
@@ -156,11 +156,11 @@ class Paper: UIView {
         return ellipse
     }
 
-    func circle(xCenter: Double, yCenter: Double, radius: Double) -> Ellipse {
+    public func circle(xCenter: Double, yCenter: Double, radius: Double) -> Ellipse {
         return ellipse(xCenter: xCenter, yCenter: yCenter, width: radius * 2, height: radius * 2)
     }
 
-    func arc(xCenter: Double, yCenter: Double, radius: Double, startAngle: Double, endAngle: Double, clockwise: Bool) -> Path {
+    public func arc(xCenter: Double, yCenter: Double, radius: Double, startAngle: Double, endAngle: Double, clockwise: Bool) -> Path {
         var clockwiseStr: String = clockwise == true ? "1" : "0"
         var path: Path = Path(instructionString: "A \(xCenter) \(yCenter) \(radius) \(startAngle) \(endAngle) \(clockwiseStr)")
         path.paper = self
@@ -169,8 +169,7 @@ class Paper: UIView {
             let path = element as! Path
             if path.fill == "" {
                 path.fillColor = nil
-            }
-            else {
+            } else {
                 path.fillColor = Artisan.color(fromHexRGB: path.fill).cgColor
             }
             path.strokeColor = Artisan.color(fromHexRGB: path.stroke).cgColor
@@ -181,7 +180,7 @@ class Paper: UIView {
         return path
     }
 
-    func rect(xOrigin: Double, yOrigin: Double, width: Double, height: Double, cornerRadius: Double = 0) -> Rectangle {
+    public func rect(xOrigin: Double, yOrigin: Double, width: Double, height: Double, cornerRadius: Double = 0) -> Rectangle {
         var rect: Rectangle = Rectangle(xOrigin: xOrigin, yOrigin: yOrigin, width: width, height: height)
         rect.cornerRadius = CGFloat(cornerRadius)
         rect.paper = self
@@ -200,12 +199,12 @@ class Paper: UIView {
         return rect
     }
 
-    func clear() {
+    public func clear() {
         drawers = Array<Drawer>()
         setNeedsDisplay()
     }
 
-    func image(src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) -> Image {
+    public func image(src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) -> Image {
         var image: Image = Image(src: src, xOrigin: xOrigin, yOrigin: yOrigin, width: width, height: height)
         image.paper = self
         func draw(_ element: Element) {
@@ -219,7 +218,7 @@ class Paper: UIView {
         return image
     }
 
-    func path(_ commands: String) -> Path {
+    public func path(_ commands: String) -> Path {
         var path: Path = Path(instructionString: commands)
         path.paper = self
         layer.addSublayer(path)
@@ -228,8 +227,7 @@ class Paper: UIView {
             path.strokeColor = Artisan.color(fromHexRGB: path.stroke).cgColor
             if path.fill == "" {
                 path.fillColor = nil
-            }
-            else {
+            } else {
                 path.fillColor = Artisan.color(fromHexRGB: path.fill).cgColor
             }
         }
@@ -240,28 +238,28 @@ class Paper: UIView {
     }
 }
 
-class Element: CAShapeLayer {
+public class Element: CAShapeLayer {
     var paper: Paper?
 
-    var stroke: String = "222222" {
+    public var stroke: String = "222222" {
         didSet {
             paper?.setNeedsDisplay()
         }
     }
 
-    var fill: String = "" {
+    public var fill: String = "" {
         didSet {
             paper?.setNeedsDisplay()
         }
     }
 
-    override var lineWidth: CGFloat {
+    public override var lineWidth: CGFloat {
         didSet {
             paper?.setNeedsDisplay()
         }
     }
 
-    override func action(forKey event: String) -> CAAction? {
+    public override func action(forKey event: String) -> CAAction? {
         if event == "path" {
             let animation = CABasicAnimation(keyPath: event)
             animation.duration = CATransaction.animationDuration()
@@ -272,14 +270,14 @@ class Element: CAShapeLayer {
     }
 }
 
-class Ellipse: Element {
-    var xCenter: Double = 0.0
-    var yCenter: Double = 0.0
-    var width: Double = 0.0
-    var height: Double = 0.0
+public class Ellipse: Element {
+    public var xCenter: Double = 0.0
+    public var yCenter: Double = 0.0
+    public var width: Double = 0.0
+    public var height: Double = 0.0
     var shapeLayer: CAShapeLayer?
 
-    init (xCenter: Double, yCenter: Double, width: Double, height: Double) {
+    public init (xCenter: Double, yCenter: Double, width: Double, height: Double) {
         self.xCenter = xCenter
         self.yCenter = yCenter
         self.width = width
@@ -287,28 +285,28 @@ class Ellipse: Element {
         super.init()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: Any) {
+    public required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
 
-class Rectangle: Element {
-    var xOrigin: Double = 0.0
-    var yOrigin: Double = 0.0
-    var width: Double = 0.0
-    var height: Double = 0.0
+public class Rectangle: Element {
+    public var xOrigin: Double = 0.0
+    public var yOrigin: Double = 0.0
+    public var width: Double = 0.0
+    public var height: Double = 0.0
 
-    override var cornerRadius: CGFloat {
+    public override var cornerRadius: CGFloat {
         didSet {
             paper?.setNeedsDisplay()
         }
     }
 
-    init (xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
+    public init (xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
         self.xOrigin = xOrigin
         self.yOrigin = yOrigin
         self.width = width
@@ -316,47 +314,48 @@ class Rectangle: Element {
         super.init()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: Any) {
+    public required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
 
-class Image: Element {
-    var xOrigin: Double = 0.0
-    var yOrigin: Double = 0.0
-    var width: Double = 0.0
-    var height: Double = 0.0
-    var uiImage: UIImage?
+public class Image: Element {
+    public var xOrigin: Double = 0.0
+    public var yOrigin: Double = 0.0
+    public var width: Double = 0.0
+    public var height: Double = 0.0
+    public var uiImage: UIImage?
 
-    init (src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
+    public init (src: UIImage, xOrigin: Double, yOrigin: Double, width: Double, height: Double) {
         self.xOrigin = xOrigin
         self.yOrigin = yOrigin
         self.width = width
         self.height = height
-        self.uiImage = src
+        uiImage = src
         super.init()
     }
-    required init?(coder aDecoder: NSCoder) {
+
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: Any) {
+    public required override init(layer: Any) {
         super.init(layer: layer)
     }
 }
 
-class Path: Element {
-    var instructionString: String {
+public class Path: Element {
+    public var instructionString: String {
         didSet {
-            self.path = Path.pathRef(for: self.instructionString)
+            path = Path.pathRef(for: instructionString)
         }
     }
 
-    class func pathRef(for instructionString: String) -> CGMutablePath {
+    public class func pathRef(for instructionString: String) -> CGMutablePath {
         var cursorLoc: CGPoint = CGPoint(x: 0, y: 0)
         let pathRef = CGMutablePath()
         var instructionStartIndex: Int = 0
@@ -464,19 +463,19 @@ class Path: Element {
         return pathRef
     }
 
-    init(instructionString: String) {
+    public init(instructionString: String) {
         self.instructionString = instructionString
         super.init()
-        self.path = Path.pathRef(for: self.instructionString)
+        path = Path.pathRef(for: instructionString)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        self.instructionString = ""
+    public required init?(coder aDecoder: NSCoder) {
+        instructionString = ""
         super.init(coder: aDecoder)
     }
 
-    required override init(layer: Any) {
-        self.instructionString = ""
+    public required override init(layer: Any) {
+        instructionString = ""
         super.init(layer: layer)
     }
 }
