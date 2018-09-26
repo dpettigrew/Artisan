@@ -1,11 +1,11 @@
-#Artisan
+# Artisan
 
 Artisan is a graphics library for iOS inspired by [Raphael](http://raphaeljs.com) and [SVG](http://www.w3.org/TR/SVG/Overview.html). It uses [CoreGraphics](https://developer.apple.com/library/prerelease/ios/documentation/CoreGraphics/Reference/CoreGraphics_Framework/index.html) to draw shapes and paths but exposes a simpler Swift API.
 
-##Setup
+## Setup
 Start by adding Artisan.swift to your Xcode project.
 
-##Create a drawing canvas
+## Create a drawing canvas
 When we draw with Artisan, we do so onto a canvas. This canvas, which we'll reference in a variable called 'paper', is created using the Paper class. We always specify the width and height of the canvas. Optionaly, you can set the background color using the *fill* property. Colors are all defined using CSS hex style strings.
 e.g.
 
@@ -15,10 +15,10 @@ e.g.
         paper.fill = "#eee"
         self.view.addSubview(paper)
 	}
-##Built in shapes
+## Built in shapes
 Now that we have the paper object we can add shapes to it. Coordinates follow the normal iOS convention with (0, 0) being at the top left. Other x, y points are relative to that point on the paper.
 
-###Circles
+### Circles
 To draw a **circle** use the circle function of the Paper class.
 
         var circle = paper.circle(xCenter: 150, yCenter: 300, r: 155)
@@ -35,14 +35,14 @@ We can draw as many circles as we like and we don't have to reference them in a 
 
 	paper.circle(xCenter: 200, yCenter: 100, r: 25)
 
-###Ellipses	
+### Ellipses	
 **Ellipses** are drawn in a similar way using the Paper.ellipse function.
 
 	paper.ellipse(xCenter: 150, yCenter: 150, width: 200, height: 20)
 	
 Its parameters are the same as the circle, i.e. xCenter, yCenter, except that we can specify width and height radii separately.
 
-###Rectangles
+### Rectangles
 Other shapes we can draw include **rectangles**. We can draw a rectangle with the Paper.rect function
 
         var offset: Double = 50;
@@ -59,7 +59,7 @@ results in
 
 Note how the linewidth and corner radius are also set.
 
-##Paths
+## Paths
 Use the Paper.path method to add paths to the paper. Paths are created using *path strings*. These loosely follow [SVG path](http://www.w3.org/TR/SVG/paths.html#PathData) strings, but are space delimited. i.e each command or data value must have a space between them in the string.
 
 		// a block shape
@@ -78,7 +78,7 @@ Use the Paper.path method to add paths to the paper. Paths are created using *pa
         
 ![paths](paths.png)
 
-##Arcs
+## Arcs
 We can draw arcs that are portions of a circle using the Paper.arc function 
 
 or using the "a" path string and the Path.path function.
@@ -91,16 +91,16 @@ Results in an arc from 0 to 180 degrees with the center of (100, 100) and a radi
 
 ![arcs](arcs.png)
 
-##Images
+## Images
 You can add images to the paper using the Paper.image function
 
         var image = UIImage(named: "photoHeader")
         paper.image(src: image!, xOrigin: 0, yOrigin: Double(paper.bounds.size.height) - 140, width: 320, height: 140)
         
-##Animations
+## Animations
 Many of the properties exposed by the Element sub-classes support implicit animation. Changing the value of an ellipse's fill, height, width, xCenter and yCenter will all be animated to the new values. Changing of the *instructionString* property of a Path object will result in the shape of the object animated from its current shape to the new one.
 
-##Todo
+## Todo
 Future plans include adding more support for 
 
 * drawing of text
